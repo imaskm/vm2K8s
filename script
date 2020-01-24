@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#command to get python app port
+#sudo netstat -plant | grep "LISTEN.*python3" | awk '{print $4}' | cut -d ":" -f2
+
+
+#all commands
+
+#Get port and pid - 1
+export PROCESS_ID=`sudo netstat -plant | grep "LISTEN.*python3" | awk '{print $7}' | cut -d "/" -f1`
+export PORT=`sudo netstat -plant | grep "LISTEN.*python3" | awk '{print $4}' | cut -d ":" -f2`
+
+#export PORT_AND_PID=`sudo netstat -plant | grep "LISTEN.*python3" | awk '{print $4":"$7}' | cut -d "/" -f 1 | cut  -d ":" -f 2-3`
+#PORT=`echo $PORT_AND_PID | cut -d ":" -f 1`
+#PROCESS_ID=`echo $PORT_AND_PID | cut -d ":" -f 2`
+
+#get app dir
+export APP_DIRECTORY=`sudo lsof | grep python3.*${PROCESS_ID}.*DIR | awk 'NR==1{print $9}'`
+
+
+
